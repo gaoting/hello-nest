@@ -15,14 +15,32 @@ type Users {
   settings: UsersSetting
 }
 
+type Book {
+  id: Int!
+  bookName: String!
+  desc: String!
+  author: String!
+  createTime: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Query {
   getUsers: [Users!]!
   getUserById(id: Int!): Users
+  books: [Book!]!
+  book(id: Int!): Book!
 }
 
 type Mutation {
   createUsers(createUserData: CreateUserInput!): Users!
   createUserSettings(createUsersSettingInput: CreateUsersSettingInput!): UsersSetting!
+  createBook(createBookInput: CreateBookInput!): Book!
+  updateBook(updateBookInput: UpdateBookInput!): Book!
+  removeBook(id: Int!): Book!
 }
 
 input CreateUserInput {
@@ -34,4 +52,17 @@ input CreateUsersSettingInput {
   userId: Int!
   receiveNotifications: Boolean = false
   receiveEmails: Boolean = false
+}
+
+input CreateBookInput {
+  bookName: String!
+  desc: String
+  author: String
+}
+
+input UpdateBookInput {
+  bookName: String
+  desc: String
+  author: String
+  id: Int!
 }

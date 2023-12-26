@@ -9,6 +9,8 @@ import { join } from 'path';
 import { UsersModule } from './users/users.module';
 import { Users } from './graphql/models/Users';
 import { UsersSetting } from './graphql/models/UsersSetting';
+import { BooksModule } from './books/books.module';
+import { Book } from './books/entities/book.entity';
 
 @Module({
   imports: [
@@ -19,7 +21,12 @@ import { UsersSetting } from './graphql/models/UsersSetting';
       username: 'root',
       password: '12345678',
       database: 'users',
-      entities: [__dirname + '/**/*.entity{.ts,.js}', Users, UsersSetting],
+      entities: [
+        __dirname + '/**/*.entity{.ts,.js}',
+        Users,
+        UsersSetting,
+        Book,
+      ],
       synchronize: true,
     }),
     GraphQLModule.forRoot({
@@ -28,6 +35,7 @@ import { UsersSetting } from './graphql/models/UsersSetting';
     }),
     UserModule,
     UsersModule,
+    BooksModule,
   ],
   controllers: [AppController],
   providers: [AppService],
